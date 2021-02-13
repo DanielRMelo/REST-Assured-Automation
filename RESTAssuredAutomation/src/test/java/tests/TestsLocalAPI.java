@@ -10,10 +10,10 @@
 // **********************************************************************
 package tests;
 
-
 import static io.restassured.RestAssured.*;
 
 import org.json.simple.JSONObject;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import io.restassured.http.ContentType;
@@ -21,80 +21,105 @@ import io.restassured.http.ContentType;
 public class TestsLocalAPI
 {
 
-//    @Test
+    @BeforeTest
+    public void beforeTest()
+    {
+        JSONObject request = new JSONObject();
+
+        request.put("firstName", "Harlequin");
+        request.put("lastName", "Demon");
+        request.put("subjectId", "6");
+        request.put("id", 6);
+
+        baseURI = "http://localhost:3000";
+
+        given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(request.toJSONString())
+                .when()
+                .post("/users")
+                .then()
+                .statusCode(201);
+    }
+
+    //    @Test
     public void test()
     {
         baseURI = "http://localhost:3000";
-        
+
         given().get("/users").then().statusCode(200).log().all(true);
     }
-    
-//    @Test
-    public void post() {
+
+    @Test
+    public void post()
+    {
         JSONObject request = new JSONObject();
-        
+
         request.put("firstName", "Harlequin");
         request.put("lastName", "Demon");
         request.put("subjectId", "2");
-        
+
         baseURI = "http://localhost:3000";
-        
+
         given()
-            .contentType(ContentType.JSON)
-            .accept(ContentType.JSON)
-            .body(request.toJSONString())
-        .when()
-            .post("/users")
-        .then()
-            .statusCode(201);
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(request.toJSONString())
+                .when()
+                .post("/users")
+                .then()
+                .statusCode(201);
     }
-    
-//    @Test
-    public void put() {
+
+    //    @Test
+    public void put()
+    {
         JSONObject request = new JSONObject();
-        
+
         request.put("firstName", "Big");
         request.put("lastName", "Witch");
         request.put("subjectId", "1");
-        
+
         baseURI = "http://localhost:3000";
-        
+
         given()
-            .contentType(ContentType.JSON)
-            .accept(ContentType.JSON)
-            .body(request.toJSONString())
-        .when()
-            .put("/users/6")
-        .then()
-            .statusCode(200).log().all();
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(request.toJSONString())
+                .when()
+                .put("/users/6")
+                .then()
+                .statusCode(200).log().all();
     }
-    
-//    @Test
-    public void patch() {
+
+    //    @Test
+    public void patch()
+    {
         JSONObject request = new JSONObject();
-        
+
         request.put("firstName", "Small");
-        
+
         baseURI = "http://localhost:3000";
-        
+
         given()
-            .contentType(ContentType.JSON)
-            .accept(ContentType.JSON)
-            .body(request.toJSONString())
-        .when()
-            .patch("/users/6")
-        .then()
-            .statusCode(200).log().all();
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(request.toJSONString())
+                .when()
+                .patch("/users/6")
+                .then()
+                .statusCode(200).log().all();
     }
-    
+
     @Test
-    public void delete() {
-        
+    public void delete()
+    {
         baseURI = "http://localhost:3000";
 
         when()
-            .delete("/users/6")
-        .then()
-            .statusCode(200).log().all();
+                .delete("/users/6")
+                .then()
+                .statusCode(200).log().all();
     }
 }

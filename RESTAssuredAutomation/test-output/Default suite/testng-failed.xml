@@ -3,11 +3,12 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="tests.TestXMLSchemaValidator">
+      <class name="tests.TestsLocalAPI">
         <methods>
-          <include name="schemaValidator"/>
+          <include name="beforeTest"/>
+          <include name="put"/>
         </methods>
-      </class> <!-- tests.TestXMLSchemaValidator -->
+      </class> <!-- tests.TestsLocalAPI -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
